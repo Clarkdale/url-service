@@ -20,9 +20,14 @@ app.get('/allUrls', (request, response) => {
 
 app.get('/addUrl/:url', (request, response) => {
     let url = request.params.url;
-    db.addUrl(url)
-        .then(x => response.json(x))
+    db.getUrlId(url)
+        .then(x => {
+            console.log(json(x));
+        })
         .catch(e => {console.trace(); response.status(500).send(e)});
+    //db.addUrl(url)
+      //  .then(x => response.json(x))
+        //.catch(e => {console.trace(); response.status(500).send(e)});
 });
 
 app.get('/getUrl/:id', (request, response) => {
