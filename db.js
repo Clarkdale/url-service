@@ -4,15 +4,6 @@ require('dotenv').config();
 const { Pool } = require('pg');
 
 // check whether this api is runing on production server or not
-
-
-//postgresql://USER:PASSWORD@HOST:PORT/DATABASE
-// postgresql://picture_dictionary_user:@localhost:5432/picture_dictionary
-const postgreConnectionString =
- `postgresql://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DATABASE}`;
-
-console.log(postgreConnectionString);
-
 const postgrePool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: true,

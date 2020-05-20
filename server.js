@@ -31,3 +31,6 @@ app.get('/getUrl/:id', (request, response) => {
         .then(x => response.json(x))
         .catch(e => {console.trace(); response.status(500).send('The categories could not be retrieved.')});
 });
+
+// start the server
+app.listen(port, () => console.log('Listening on port ' + port));
