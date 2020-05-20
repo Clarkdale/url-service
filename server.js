@@ -20,17 +20,8 @@ app.get('/allUrls', (request, response) => {
 
 app.get('/addUrl/:url', (request, response) => {
     let url = request.params.url;
-    db.getUrlId(url)
-        .then(x => {
-            let res = JSON.parse(x);
-            if (res.length > 0) {
-                response.json(res[0].id);
-            } else {
-
-            }
-            db.addUrl(url);
-            db.getUrlId(url).then(y => response.json(y));
-        })
+    db.addUrl(url)
+        .then(x => response.json(x))
         .catch(e => {console.trace(); response.status(500).send(e)});
 });
 
