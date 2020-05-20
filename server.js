@@ -12,6 +12,12 @@ const port = process.env.PORT || 4003;
 
 app.use(cors());
 
+app.get('/allUrls', (request, response) => {
+    db.getAllUrls()
+    .then(x => response.json(x))
+    .catch(e => {console.trace(); response.status(500).send('The categories could not be retrieved.')});
+});
+
 app.get('/addUrl/:url', (request, response) => {
     let url = request.params.url;
     db.addUrl(url)
@@ -21,7 +27,7 @@ app.get('/addUrl/:url', (request, response) => {
 
 app.get('/getUrl/:id', (request, response) => {
     let urlId = request.params.id;
-    db.getidUrl(urlId)
+    db.getIdUrl(urlId)
         .then(x => response.json(x))
         .catch(e => {console.trace(); response.status(500).send('The categories could not be retrieved.')});
 });
