@@ -29,7 +29,7 @@ function getIdUrl(id) {
 
 function addUrl(url) {
     return postgrePool.query('insert into URLs(link) values ($1)', [url])
-   .then(result => result.rows[0].id);
+   .then(result => result.rows);
 }
 
 module.exports = { getAllUrls, getUrlId, getIdUrl, addUrl }
