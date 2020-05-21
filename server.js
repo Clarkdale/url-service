@@ -18,7 +18,7 @@ app.get('/allUrls', (request, response) => {
     .catch(e => {console.trace(); response.status(500).send('The categories could not be retrieved.')});
 });
 
-app.get('/addUrl/:url', (request, response) => {
+app.get('/addUrl/:url(*)', (request, response) => {
     let url = request.params.url;
     db.addUrl(url)
         .then(x => {
