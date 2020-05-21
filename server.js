@@ -1,7 +1,5 @@
 const express = require('express');
 var cors = require('cors');
-var bodyParser = require('body-parser')
-const url = require('url');
 const db = require('./db.js');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
