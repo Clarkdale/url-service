@@ -21,16 +21,23 @@ app.get('/allUrls', (request, response) => {
 app.get('/addUrl/:url', (request, response) => {
     let url = request.params.url;
     db.addUrl(url)
-        .then(x => response.json(x))
+        .then(x => {
+            db.getUrlId(url)
+                .then(y => response.json(y));
+        })
         .catch(e => {console.trace(); response.status(500).send(e)});
 });
 
 app.get('/getUrl/:id', (request, response) => {
     let urlId = request.params.id;
+    getUrl(urlId);
+});
+
+function getUrl(urlId) {
     db.getIdUrl(urlId)
         .then(x => response.json(x))
         .catch(e => {console.trace(); response.status(500).send('The categories could not be retrieved.')});
-});
+}
 
 // start the server
 app.listen(port, () => console.log('Listening on port ' + port));
