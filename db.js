@@ -28,7 +28,7 @@ function getIdUrl(id) {
 }
 
 function addUrl(url) {
-    return postgrePool.query('insert into URLs(link) values ($1)', [url])
+    return postgrePool.query(`insert into URLs(link) select * from (select ${url}) as tmp where not exists (select link from URLs where link=${url}) limit 1`)
    .then(result => result.rows);
 }
 
