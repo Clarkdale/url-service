@@ -21,8 +21,7 @@ app.get('/r/:urlId', (request, response) => {
         curr = map.indexOf(init[i]);
         result += (curr * Math.pow(61, j));
     }
-    console.log(result);
-    db.getIdUrl(request.params.urlId)
+    db.getIdUrl(result)
         .then(x => {
             response.redirect(x);
         })
