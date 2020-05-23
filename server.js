@@ -10,7 +10,7 @@ const port = process.env.PORT || 4003;
 
 app.use(cors());
 
-app.get('/:urlId', (request, response) => {
+app.get('/r/:urlId', (request, response) => {
     db.getIdUrl(request.params.urlId)
         .then(x => {
             response.redirect(x);
