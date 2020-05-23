@@ -21,7 +21,7 @@ app.get('/r/:urlId', (request, response) => {
     let result = 0;
     for (let i = 0, j = init.length; i < init.length, j >= 0; i++, j--) {
         curr = map.indexOf(init[i]);
-        result += (curr * Math.pow(map.length - 1, i));
+        result += (curr * Math.pow(61, i));
     }
     console.log(result);
     db.getIdUrl(request.params.urlId)
