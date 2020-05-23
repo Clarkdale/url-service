@@ -10,9 +10,20 @@ const port = process.env.PORT || 4003;
 
 app.use(cors());
 
+var map = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'E', 'F', 'G', 'H',
+                       'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 
+                       'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+                       'y', 'z'];
+
 app.get('/r/:urlId', (request, response) => {
+    let curr;
     let init = request.params.urlId;
-    console.log(typeof(init));
+    let result = 0;
+    for (let i = 0; i < init.length; i++) {
+        curr = map.indexOf(init[i]);
+        result += (curr * Math.pow(10, i));
+    }
+    console.log(result);
     db.getIdUrl(request.params.urlId)
         .then(x => {
             response.redirect(x);
