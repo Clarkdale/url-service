@@ -11,9 +11,11 @@ const port = process.env.PORT || 4003;
 app.use(cors());
 
 app.get('/r/:urlId', (request, response) => {
+    console.log(request.params.urlId);
     db.getIdUrl(request.params.urlId)
         .then(x => {
-            return response.redirect(x);
+            console.log(x);
+            response.redirect(x);
         });
 });
 

@@ -22,7 +22,6 @@ function getUrlId(url) {
 }
 
 function getIdUrl(id) {
-    console.log(id);
     return postgrePool.query('select link from URLs where id=$1', [id])
   .then(result => result.rows[0].link);
 }
