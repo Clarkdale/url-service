@@ -18,7 +18,7 @@ function getAllUrls() {
 
 function getUrlId(url) {
     return postgrePool.query('select id from URLs where link=$1', [url])
-  .then(result => result.rows);
+  .then(result => result.rows[0].id);
 }
 
 function getIdUrl(id) {
