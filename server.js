@@ -11,18 +11,17 @@ const port = process.env.PORT || 4003;
 app.use(cors());
 
 app.get('/r/:urlId', (request, response) => {
-    console.log(request.params.urlId);
     db.getIdUrl(request.params.urlId)
         .then(x => {
-            console.log(x);
             response.redirect(x);
-        });
+        })
+        .catch(e => {console.trace(); response.status(500).send('Could not find the designated link')});
 });
 
 app.get('/allUrls', (request, response) => {
     db.getAllUrls()
     .then(x => response.json(x))
-    .catch(e => {console.trace(); response.status(500).send('The categories could not be retrieved.')});
+    .catch(e => {console.trace(); response.status(500).send('The databse data could not be retrieved.')});
 });
 
 app.get('/addUrl/:url(*)', (request, response) => {
@@ -32,19 +31,15 @@ app.get('/addUrl/:url(*)', (request, response) => {
             db.getUrlId(url)
                 .then(y => response.json(y));
         })
-        .catch(e => {console.trace(); response.status(500).send(e)});
+        .catch(e => {console.trace(); response.status(500).send('The url could not be added')});
 });
 
 app.get('/getUrl/:id', (request, response) => {
     let urlId = request.params.id;
-    getUrl(urlId);
-});
-
-function getUrl(urlId) {
     db.getIdUrl(urlId)
         .then(x => response.json(x))
-        .catch(e => {console.trace(); response.status(500).send('The categories could not be retrieved.')});
-}
+        .catch(e => {console.trace(); response.status(500).send('Could not find the designated URL')});
+});
 
 // start the server
 app.listen(port, () => console.log('Listening on port ' + port));
