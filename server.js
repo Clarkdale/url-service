@@ -20,7 +20,7 @@ app.get('/r/:urlId', (request, response) => {
     let init = request.params.urlId;
     let result = 0;
 
-    for (let i = 0, j = init.length - 1; i < init.length, j >= 0; i++, j--) {
+    for (let i = 0, j = init.length - 1; i < init.length && j >= 0; i++, j--) {
         curr = map.indexOf(init[i]);
         result += (curr * Math.pow(61, j));
     }
