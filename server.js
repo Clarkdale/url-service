@@ -13,7 +13,7 @@ app.use(cors());
 app.get('/r/:urlId', (request, response) => {
     db.getIdUrl(request.params.urlId)
         .then(x => {
-            response.redirect(x);
+            return response.redirect(x);
         });
 });
 
