@@ -12,7 +12,9 @@ app.use(cors());
 
 app.get('/allUrls', (request, response) => {
     db.getAllUrls()
-    .then(x => response.json(x))
+    .then(x => {
+        response.json(x)
+    })
     .catch(e => {console.trace(); response.status(500).send('The databse data could not be retrieved.')});
 });
 
