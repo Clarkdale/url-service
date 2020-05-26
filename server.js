@@ -26,7 +26,7 @@ app.get('/allUrls', (request, response) => {
         for (let i = 0; i < vals.length; i++) {
             out += map[vals[i]];
         }
-        response.json(x)
+        response.json(out)
     })
     .catch(e => {console.trace(); response.status(500).send('The databse data could not be retrieved.')});
 });
