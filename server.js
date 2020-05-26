@@ -8,6 +8,8 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const app = express();
 const port = process.env.PORT || 4003;
 
+const map = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
 app.use(cors());
 
 app.get('/allUrls', (request, response) => {
