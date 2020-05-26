@@ -8,11 +8,24 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const app = express();
 const port = process.env.PORT || 4003;
 
+const map = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
 app.use(cors());
 
 app.get('/allUrls', (request, response) => {
     db.getAllUrls()
     .then(x => {
+        let vals = [];
+        let out = "";
+        while (x > 0) {
+            vals.push(x % 61);
+            x = Math.floor(x / 61);
+        }
+        vals.reverse();
+                            
+        for (let i = 0; i < vals.length; i++) {
+            out += map[vals[i]];
+        }
         response.json(x)
     })
     .catch(e => {console.trace(); response.status(500).send('The databse data could not be retrieved.')});
