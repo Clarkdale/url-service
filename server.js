@@ -8,7 +8,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const app = express();
 const port = process.env.PORT || 4003;
 
-const map = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const base61Map = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 app.use(cors());
 
@@ -24,18 +24,7 @@ app.get('/addUrl/:url(*)', (request, response) => {
         .then(x => {
             db.getUrlId(url)
                 .then(y => {
-                    let vals = [];
-                    let out = "";
-                    while (y > 0) {
-                        vals.push(y % 61);
-                        y = Math.floor(y / 61);
-                    }
-                    vals.reverse();
-                                    
-                    for (let i = 0; i < vals.length; i++) {
-                        out += map[vals[i]];
-                    }
-                    response.json(out)
+                    response.json(convertBase61(y));
                 });
         })
         .catch(e => {console.trace(); response.status(500).send('The url could not be added')});
@@ -47,6 +36,21 @@ app.get('/getUrl/:id', (request, response) => {
         .then(x => response.json(x))
         .catch(e => {console.trace(); response.status(500).send('Could not find the designated URL')});
 });
+
+function convertBase61(base10Number) {
+    let base61Buffer = [];
+    let retVal = "";
+    while (base10Number > 0) {
+        base61Buffer.push(base10Number % 61);
+        base10Number = Math.floor(base10Number / 61);
+    }
+    base61Buffer.reverse();
+                                    
+    for (let i = 0; i < base61Buffer.length; i++) {
+        retVal += base61Map[base61Buffer[i]];
+    }
+    return retVal;
+}
 
 // start the server
 app.listen(port, () => console.log('Listening on port ' + port));
